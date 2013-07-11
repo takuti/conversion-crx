@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="utf-8" />
+	<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+<body>
+	(*ﾂ'Θ'　<span id="error"></span><br />
+	　２進数：<input type="text" name="num" placeholder="2進数" />
+	<button type="button" id="binary">変換</button>
+	<br />
+	１０進数：<input type="text" name="num" pattern="^[0-9]+$" placeholder="10進数" />
+	<button type="button" id="decimal">変換</button>
+	<br />
+	１６進数：<input type="text" name="num" pattern="^[0-9A-Za-z]+$" placeholder="16進数" />
+	<button type="button" id="hex">変換</button>
+	<hr />
+	<input type="text" name="color" class="color" placeholder="カラーコード" />
+	<button type="button" id="to-rgb">カラーコード -> RGB</button>
+	<br /><br />
+	<input type="text" name="rgb" class="rgb" placeholder="R" maxlength="3" /><!-- ３けた！！ -->
+	<input type="text" name="rgb" class="rgb" placeholder="G" maxlength="3" />
+	<input type="text" name="rgb" class="rgb" placeholder="B" maxlength="3" />
+	<button type="button" id="to-color">RGB -> カラーコード</button>
+
+	<script src="scripts/rgbcolor.js"></script>
+	<script src="scripts/script.js"></script>
+</body>
+</html>

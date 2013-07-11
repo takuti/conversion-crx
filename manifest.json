@@ -1,0 +1,13 @@
+{
+	"name": "しんすーへんかんくん",
+	"version": "0.1",
+	"manifest_version": 2,
+
+	"description": "進数変換をするよ！",
+
+	"browser_action": {
+		"default_icon": "icon19.png",
+		"default_title": "しんすーへんかんくん",
+		"default_popup": "popup.html"
+	}
+}
