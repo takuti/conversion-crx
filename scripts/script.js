@@ -36,7 +36,7 @@ document.getElementById('decimal').onclick = function(){
 document.getElementById('hex').onclick = function(){
 	var n = nums[2].value;
 	localStorage['hex'] = n;
-	if(n.match(/^[0-9A-Za-z]+$/)){
+	if(n.match(/^[0-9A-Fa-f]+$/)){
 		document.getElementById('error').innerHTML = "";
 
 		nums[0].value = parseInt(n,16).toString(2);
