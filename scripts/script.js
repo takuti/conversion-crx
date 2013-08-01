@@ -59,7 +59,7 @@ document.getElementById('to-rgb').onclick = function(){
 	if(c.match(/^[0-9A-Za-z]{6}$/)){ c = "#" + c; }
 	localStorage['RGBColor'] = c;
 
-	if(c.match(/^#[0-9A-Za-z]{6}$/)){
+	if(c.match(/^#[0-9A-Fa-f]{6}$/)){
 		document.getElementById('error').innerHTML = "";
 
 		var rgb_color = new RGBColor(c);
