@@ -1,0 +1,85 @@
+@charset "UTF-8";
+
+/*--- init ---*/
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, code, del, dfn, em, img, q, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
+	margin:0; padding:0; border:0; font-weight:inherit; font-style:inherit; font-size:100%; font-family:inherit; vertical-align:baseline;
+}
+body{
+	line-height:1.5; background:#fff; margin:1.5em 0;
+}
+table{
+	border-collapse:separate; border-spacing:0;
+}
+caption, th, td{
+	text-align:left; font-weight:400;
+}
+blockquote:before, blockquote:after, q:before, q:after {
+	content:"";
+}
+blockquote, q{
+	quotes:"" "";
+}
+a img{
+	border:none;
+}
+
+/*-- main --*/
+body, html {
+	color: #393939;
+	font-family: 'ヒラギノ角ゴ Pro W3','Hiragino Kaku Gothic Pro','メイリオ',Meiryo,'ＭＳ Ｐゴシック',sans-serif;
+	font-size: 12px;
+	width: 302px;
+	margin: 0;
+	padding: 0;
+}
+
+ul#tabs {
+	list-style-type: none;
+}
+
+	ul li.tab {
+		float: left;
+		width: 100px;
+		text-align: center;
+		background: #42aac7;
+		color: #fff;
+		padding: 5px 0;
+		margin-left: 1px;
+	}
+		.tab:first-child{
+			margin-left: 0;
+		}
+
+#wrapper {
+	margin: 10px;
+}
+
+.error {
+	color: #42aac7;
+	font-size: 12px;
+}
+
+input[type="text"] {
+	text-align: right;
+	width: 97%;
+	background-color:transparent;
+	border: 1px solid #aaa;
+}
+input[type="text"].color { width: 30%; }
+
+textarea {
+	width: 97%;
+	height: 200px;
+	background-color:transparent;
+	border: 1px solid #aaa;
+}
+
+.color { width: 98px; }
+.rgb { width: 25px; }
+
+.clearfix {zoom:1;}
+.clearfix:after {
+  content: "";
+  display: block;
+  clear: both;
+}

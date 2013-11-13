@@ -31,13 +31,13 @@
 		<div id="color-conv">
 			<form novalidate name="color_form" ng-controller="colorController">
 				<p>
-					RGB to ColorCode　<span class="error" ng-show="color_form.r.$error.pattern || color_form.g.$error.pattern || color_form.b.$error.pattern">0-255 each</span><br />
+					RGB　<span class="error" ng-show="color_form.r.$error.pattern || color_form.g.$error.pattern || color_form.b.$error.pattern">0-255 each</span><br />
 					<input type="text" name="r" class="color" placeholder="R" ng-model="color.r" ng-pattern="rgb_pattern" ng-change="rgb2code()" />
 					<input type="text" name="g" class="color" placeholder="G" ng-model="color.g" ng-pattern="rgb_pattern" ng-change="rgb2code()" />
 					<input type="text" name="b" class="color" placeholder="B" ng-model="color.b" ng-pattern="rgb_pattern" ng-change="rgb2code()" />
 				</p><br />
 				<p>
-					ColorCode to RGB　<span class="error" ng-show="color_form.code.$error.pattern">#xxxxxx (without # is OK)</span><br />
+					Color Code　<span class="error" ng-show="color_form.code.$error.pattern">#xxxxxx (without # is OK)</span><br />
 					<input type="text" name="code" class="color" placeholder="ColorCode" ng-model="color.code" ng-pattern="code_pattern" ng-change="code2rgb()" />
 				</p>
 			</form>
