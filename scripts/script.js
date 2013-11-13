@@ -1,106 +1,128 @@
+/*-- タブ処理 using jQuery --*/
+$(function(){
+	$("#wrapper").children().hide();
+	if(localStorage.tabCondition) $("#" + localStorage.tabCondition + "-conv").show();
+	else $("#num-conv").show();
+});
+
+$(".tab:nth-child(1)").click(function(){
+	$("#wrapper").children().hide();
+	$("#num-conv").show();
+	localStorage.tabCondition = 'num';
+});
+
+$(".tab:nth-child(2)").click(function(){
+	$("#wrapper").children().hide();
+	$("#color-conv").show();
+	localStorage.tabCondition = 'color';
+});
+
+$(".tab:nth-child(3)").click(function(){
+	$("#wrapper").children().hide();
+	$("#html-conv").show();
+	localStorage.tabCondition = 'html';
+});
+
 /*--- 進数変換 ---*/
-var nums = document.getElementsByName('num');
-
-document.getElementById('binary').onclick = function(){
-	var n = nums[0].value;
-	localStorage['binary'] = n;
-	if(n.match(/^[01]+$/)){
-		document.getElementById('error').innerHTML = "";
-
-		nums[1].value = parseInt(n,2);
-		localStorage['decimal'] = parseInt(n,2);
-
-		nums[2].value = parseInt(n,2).toString(16);
-		localStorage['hex'] = parseInt(n,2).toString(16);
-	} else {
-		document.getElementById('error').innerHTML = "ちゃんと2進数を入力して！";
+function numController($scope){
+	function saveNumToLocalStorage(){
+		localStorage.binary = $scope.num.binary;
+		localStorage.decimal = $scope.num.decimal;
+		localStorage.hex = $scope.num.hex;
 	}
-}
 
-document.getElementById('decimal').onclick = function(){
-	var n = nums[1].value;
-	localStorage['decimal'] = n;
-	if(n.match(/^[0-9]+$/)){
-		document.getElementById('error').innerHTML = "";
+	// init
+	$scope.num = {'binary':localStorage.binary, 'decimal':localStorage.decimal, 'hex':localStorage.hex};
 
-		nums[0].value = parseInt(n).toString(2);
-		localStorage['binary'] = parseInt(n).toString(2);
+	$scope.binary_pattern = /^[01]*$/;
+	$scope.decimal_pattern = /^[0-9]*$/;
+	$scope.hex_pattern = /^[0-9A-Fa-f]*$/;
 
-		nums[2].value = parseInt(n).toString(16);
-		localStorage['hex'] = parseInt(n).toString(16);
-	} else {
-		document.getElementById('error').innerHTML = "ちゃんと10進数を入力して！";
-	}
-}
+	$scope.binary = function(){
+		if($scope.num.binary && parseInt($scope.num.binary,2) < 9007199254740992){
+			$scope.num.decimal = parseInt($scope.num.binary,2);
+			$scope.num.hex = parseInt($scope.num.binary,2).toString(16);
+		} else {
+			$scope.num.decimal = '';
+			$scope.num.hex = '';
+		}
+		saveNumToLocalStorage();
+	};
 
-document.getElementById('hex').onclick = function(){
-	var n = nums[2].value;
-	localStorage['hex'] = n;
-	if(n.match(/^[0-9A-Fa-f]+$/)){
-		document.getElementById('error').innerHTML = "";
+	$scope.decimal = function(){
+		if($scope.num.decimal && parseInt($scope.num.decimal) < 9007199254740992){
+			$scope.num.binary = parseInt($scope.num.decimal).toString(2);
+			$scope.num.hex = parseInt($scope.num.decimal).toString(16);
+		} else {
+			$scope.num.binary = '';
+			$scope.num.hex = '';
+		}
+		saveNumToLocalStorage();
+	};
 
-		nums[0].value = parseInt(n,16).toString(2);
-		localStorage['binary'] = parseInt(n,16).toString(2);
-
-		nums[1].value = parseInt(n,16);
-		localStorage['decimal'] = parseInt(n,16);
-	} else {
-		document.getElementById('error').innerHTML = "ちゃんと16進数を入力して！";
-	}
+	$scope.hex = function(){
+		if($scope.num.hex && parseInt($scope.num.hex,16) < 9007199254740992){
+			$scope.num.binary = parseInt($scope.num.hex,16).toString(2);
+			$scope.num.decimal = parseInt($scope.num.hex,16);
+		} else {
+			$scope.num.binary = '';
+			$scope.num.decimal = '';
+		}
+		saveNumToLocalStorage();
+	};
 }
 
 
 /*--- カラーコード・RGB変換 ---*/
-var color = document.getElementsByName('color');
-var rgbs = document.getElementsByName('rgb');
-
-document.getElementById('to-rgb').onclick = function(){
-	var c = color[0].value;
-	if(c.match(/^[0-9A-Za-z]{6}$/)){ c = "#" + c; }
-	localStorage['RGBColor'] = c;
-
-	if(c.match(/^#[0-9A-Fa-f]{6}$/)){
-		document.getElementById('error').innerHTML = "";
-
-		var rgb_color = new RGBColor(c);
-		rgbs[0].value = rgb_color.r;
-		rgbs[1].value = rgb_color.g;
-		rgbs[2].value = rgb_color.b;
-	} else {
-		document.getElementById('error').innerHTML = "ちゃんとカラーコードを入力して！";
+function colorController($scope) {
+	function saveColorToLocalStolage(){
+		localStorage.color = $scope.color.code;
 	}
+
+	// init
+	if(localStorage.color) {
+		var rgb_color = new RGBColor(localStorage.color);
+		$scope.color = {'r':rgb_color.r, 'g':rgb_color.g, 'b':rgb_color.b, 'code':localStorage.color};
+	} else {
+		$scope.color = {'r':0, 'g':0, 'b':0, 'code':'#000000'};
+	}
+
+	$scope.rgb_pattern = /^[0-9]{1,3}$/;
+	$scope.code_pattern = /^((|#)[0-9A-Fa-f]{6}|(|#)[0-9A-Fa-f]{3})$/;
+
+	$scope.rgb2code = function(){
+		if($scope.color.r && $scope.color.g && $scope.color.b){
+			var rgb_color = new RGBColor("rgb("+$scope.color.r+","+$scope.color.g+","+$scope.color.b+")");
+			$scope.color.code = rgb_color.toHex();
+		} else {
+			$scope.color.code = '';
+		}
+		saveColorToLocalStolage();
+	};
+
+	$scope.code2rgb = function(){
+		if($scope.color.code){
+			var code_color = new RGBColor($scope.color.code);
+			$scope.color.r = code_color.r;
+			$scope.color.g = code_color.g;
+			$scope.color.b = code_color.b;
+		} else {
+			$scope.color.r = '';
+			$scope.color.g = '';
+			$scope.color.b = '';
+		}
+		saveColorToLocalStolage();
+	};
 }
 
-document.getElementById('to-color').onclick = function(){
-	var r = rgbs[0].value;
-	var g = rgbs[1].value;
-	var b = rgbs[2].value;
-	if(r.match(/^[0-9]{1,3}$/) && g.match(/^[0-9]{1,3}$/) && b.match(/^[0-9]{1,3}$/)){
-		document.getElementById('error').innerHTML = "";
-
-		var rgb_color = new RGBColor('white');
-		rgb_color.r = parseInt(r);
-		rgb_color.g = parseInt(g);
-		rgb_color.b = parseInt(b);
-		localStorage['RGBColor'] = rgb_color.toHex();
-		color[0].value = rgb_color.toHex();
-	} else {
-		document.getElementById('error').innerHTML = "ちゃんとRGBを入力して！";
-	}
-}
-
-
-/*--- 共通 ---*/
-document.body.onload = function(){
-	if(localStorage['binary']) nums[0].value = localStorage['binary'];
-	if(localStorage['decimal']) nums[1].value = localStorage['decimal'];
-	if(localStorage['hex']) nums[2].value = localStorage['hex'];
-	if(localStorage['RGBColor']){
-		var c = localStorage['RGBColor'];
-		color[0].value = c;
-		var rgb_color = new RGBColor(c);
-		rgbs[0].value = rgb_color.r;
-		rgbs[1].value = rgb_color.g;
-		rgbs[2].value = rgb_color.b;
-	}
+/*--- HTMLエスケープ ---*/
+function htmlEscapeController($scope) {
+	$scope.escape = function(){
+		var resultTmp = $scope.escape_target.replace(/&/g,"&amp;");
+		resultTmp = resultTmp.replace(/"/g,"&quot;");
+		resultTmp = resultTmp.replace(/'/g,"&#039;");
+		resultTmp = resultTmp.replace(/</g,"&lt;");
+		resultTmp = resultTmp.replace(/>/g,"&gt;");
+		$scope.escape_result = resultTmp;
+	};
 }

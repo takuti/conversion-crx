@@ -1,28 +1,64 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" ng-app ng-csp>
 <head>
 	<meta charset="utf-8" />
-	<link rel="stylesheet" href="style.css" type="text/css" />
+	<link rel="stylesheet" href="style/style.css" type="text/css" />
+	<link rel="stylesheet" href="style/angular-csp.css" type="text/css" /><!-- for ng-csp -->
 </head>
 <body>
-	(*ﾂ'Θ'　<span id="error"></span><br />
-	　２進数：<input type="text" name="num" placeholder="2進数" />
-	<button type="button" id="binary">変換</button>
-	<br />
-	１０進数：<input type="text" name="num" placeholder="10進数" />
-	<button type="button" id="decimal">変換</button>
-	<br />
-	１６進数：<input type="text" name="num" placeholder="16進数" />
-	<button type="button" id="hex">変換</button>
-	<hr />
-	<input type="text" name="color" class="color" placeholder="カラーコード" />
-	<button type="button" id="to-rgb">カラーコード -> RGB</button>
-	<br /><br />
-	<input type="text" name="rgb" class="rgb" placeholder="R" maxlength="3" /><!-- ３けた！！ -->
-	<input type="text" name="rgb" class="rgb" placeholder="G" maxlength="3" />
-	<input type="text" name="rgb" class="rgb" placeholder="B" maxlength="3" />
-	<button type="button" id="to-color">RGB -> カラーコード</button>
+	<ul id="tabs" class="clearfix">
+		<li class="tab">進数</li>
+		<li class="tab">色</li>
+		<li class="tab">HTML</li>
+	</ul>
+	<div id="wrapper">
+		<div id="num-conv">
+			<form novalidate name="num_form" ng-controller="numController">
+				<p>
+					Binary　<span class="error" ng-show="num_form.binary.$error.pattern">2進数は0と1だけだよ</span><br />
+					<input type="text" name="binary" placeholder="ここに2進数を入力" ng-model="num.binary" ng-pattern="binary_pattern" ng-change="binary()"  />
+				</p><br />
+				<p>
+					Decimal　<span class="error" ng-show="num_form.decimal.$error.pattern">ちゃんと10進数を入力してね</span><br />
+					<input type="text" name="decimal" placeholder="ここに10進数を入力" ng-model="num.decimal" ng-pattern="decimal_pattern" ng-change="decimal()" />
+				</p><br />
+				<p>
+					Hex　<span class="error" ng-show="num_form.hex.$error.pattern">ちゃんと16進数を入力してね</span><br />
+					<input type="text" name="hex" placeholder="ここに16進数を入力" ng-model="num.hex" ng-pattern="hex_pattern" ng-change="hex()" />
+				</p>
+			</form>
+		</div><!-- /num-conv -->
+		<div id="color-conv">
+			<form novalidate name="color_form" ng-controller="colorController">
+				<p>
+					RGB to ColorCode　<span class="error" ng-show="color_form.r.$error.pattern || color_form.g.$error.pattern || color_form.b.$error.pattern">0-255 each</span><br />
+					<input type="text" name="r" class="color" placeholder="R" ng-model="color.r" ng-pattern="rgb_pattern" ng-change="rgb2code()" />
+					<input type="text" name="g" class="color" placeholder="G" ng-model="color.g" ng-pattern="rgb_pattern" ng-change="rgb2code()" />
+					<input type="text" name="b" class="color" placeholder="B" ng-model="color.b" ng-pattern="rgb_pattern" ng-change="rgb2code()" />
+				</p><br />
+				<p>
+					ColorCode to RGB　<span class="error" ng-show="color_form.code.$error.pattern">#xxxxxx (without # is OK)</span><br />
+					<input type="text" name="code" class="color" placeholder="ColorCode" ng-model="color.code" ng-pattern="code_pattern" ng-change="code2rgb()" />
+				</p>
+			</form>
+		</div><!-- /color-conv -->
+		<div id="html-conv">
+			<form novalidate name="html_escape_form" ng-controller="htmlEscapeController">
+				<p>
+					Escape Target<br />
+					<textarea class="html" placeholder="Input HERE" ng-model="escape_target" ng-change="escape()"></textarea>
+				</p><br />
+				<p>
+					Result<br />
+					<textarea class="html" placeholder="Result HERE" ng-model="escape_result" readonly></textarea>
+				</p><br />
+				* input data is NOT memorized.
+			</form>
+		</div><!-- /html-conv -->
+	</div><!-- /wrapper -->
 
+	<script src="scripts/jquery-1.10.2.min.js"></script>
+	<script src="scripts/angular.min.js"></script>
 	<script src="scripts/rgbcolor.js"></script>
 	<script src="scripts/script.js"></script>
 </body>
