@@ -1,20 +1,16 @@
-##へんかんくん ver0.2.0
+##*conversion guy* ver0.2.0
 
-- 進数変換できるサイトにわざわざ飛ぶのがめんどくさい！
-- カラーコードとRGBの相互変換を簡単にやりたい！
-- HTMLエスケープをもっとサクッとやりたい！←New!!!
+This is GoogleChrome Extention do conversion like below.
 
-そんな僕の要望にお答えしたChrome拡張です。
+####binary <-> decimal <-> hex
+![binary <-> decimal <-> hex](images/ss/num.png)
 
-[AngularJS](http://angularjs.org/)のおかげでサクサクと快適なへんかんくんライフをお届け。
+####color code <-> RGB 0-255 value
+![color code <-> RGB 0-255 value](images/ss/color.png)
 
-カラーコードとRGBの相互変換に[rgbcolor.js](http://www.phpied.com/rgb-color-parser-in-javascript/)を利用しています。
+####HTML escape
+![HTML escape](images/ss/html.png)
 
-####進数変換
-![進数変換](images/ss/num.png)
+This guy is using [AngularJS](http://angularjs.org/). If you wanna know detail, see: [GoogleChrome Extention Development using AngularJS - blog.takuti.me](http://blog.takuti.me/crx-dev-using-angularjs/) (Japanese).
 
-####カラーコード/RGB相互変換
-![カラーコード/RGB相互変換](images/ss/color.png)
-
-####HTMLエスケープ
-![HTMLエスケープ](images/ss/html.png)
+To convert color code <-> RGB value, using [rgbcolor.js](http://www.phpied.com/rgb-color-parser-in-javascript/).
