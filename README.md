@@ -5,6 +5,8 @@ This is GoogleChrome Extention do conversion like below.
 ####binary <-> decimal <-> hex
 ![binary <-> decimal <-> hex](images/ss/num.png)
 
+Web app version is [HERE](http://takuti.me/dev/binary2decimal2hex/).
+
 ####color code <-> RGB 0-255 value
 ![color code <-> RGB 0-255 value](images/ss/color.png)
 
